@@ -15,13 +15,15 @@ parser.add_argument('--end', default=25, type=int)
 args = parser.parse_args()
 
 # dataset = 'mot/val'
-dataset = 'dancetrack/val'
+# dataset = '/home/minxing/datasets/NSVA_157_person/test'
+dataset = '/home/minxing/datasets/sportsmot_publish/sportsmot_publish/dataset/val'
 
-val_pred = 'oracle_analysis/val_appearance'
+val_pred = 'val_appearance_sportsmot'
 if not os.path.exists(val_pred):
     os.makedirs(val_pred)
 
-val_seqs = sorted(os.listdir(dataset))[args.start:args.end+1]
+# val_seqs = sorted(os.listdir(dataset))[args.start:args.end+1]
+val_seqs = sorted(os.listdir(dataset))
 for video_name in val_seqs:
     print(video_name)
     det_results = {}
@@ -48,8 +50,9 @@ for video_name in val_seqs:
     for frame_id in sorted(det_results.keys()):
         det = det_results[frame_id]
         det = np.array(det)
-#         image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id + star_idx))
-        image_path = os.path.join(dataset, video_name, 'img1', '{:0>8d}.jpg'.format(frame_id))
+        # image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id + star_idx))
+        image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id))
+        # image_path = os.path.join(dataset, video_name, 'img1', '{:0>8d}.jpg'.format(frame_id))
         online_targets = tracker.update(det, image_path)
         online_tlwhs = []
         online_ids = []

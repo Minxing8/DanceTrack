@@ -2,9 +2,10 @@ import os
 import glob
 
 # dataset = 'mot/val'
-dataset = 'dancetrack/val'
+# dataset = '/home/minxing/datasets/NSVA_157_person/test'
+dataset = '/home/minxing/datasets/sportsmot_publish/sportsmot_publish/dataset/val'
 
-val_pred = 'oracle_analysis/val_pred'
+val_pred = 'val_pred_sportsmot'
 if not os.path.exists(val_pred):
     os.makedirs(val_pred)
 

@@ -4,9 +4,10 @@ from iou import Tracker
 import numpy as np
 
 # dataset = 'mot/val'
-dataset = 'dancetrack/val'
+# dataset = '/home/minxing/datasets/NSVA_157_person/test'
+dataset = '/home/minxing/datasets/sportsmot_publish/sportsmot_publish/dataset/val'
 
-val_pred = 'oracle_analysis/val_iou'
+val_pred = 'val_iou_sportsmot'
 if not os.path.exists(val_pred):
     os.makedirs(val_pred)
 

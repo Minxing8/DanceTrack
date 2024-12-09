@@ -82,13 +82,19 @@ parser.add_argument('--end', default=25, type=int)
 args = parser.parse_args()
 
 # dataset = 'mot/val'
-dataset = 'dancetrack/val'
+# dataset = '/home/minxing/datasets/NSVA_157_person/test'
+dataset = '/home/minxing/datasets/NSVA_long'
 
-val_pred = 'oracle_analysis/val_appearance'
-if not os.path.exists(val_pred):
-    os.makedirs(val_pred)
+output_dir = 'tsne_nsva_long'
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 
-val_seqs = sorted(os.listdir(dataset))[args.start:args.end+1]
+# val_pred = 'val_appearance'
+# if not os.path.exists(val_pred):
+#     os.makedirs(val_pred)
+
+# val_seqs = sorted(os.listdir(dataset))[args.start:args.end+1]
+val_seqs = sorted(os.listdir(dataset))
 for video_name in val_seqs:
     print(video_name)
     det_results = {}
@@ -110,12 +116,14 @@ for video_name in val_seqs:
     f.close()
     
     feat_results = {}
-    star_idx = len(gb.glob(os.path.join(dataset, video_name, 'img1') + "/*.jpg")) // 2 + 1
+    # star_idx = len(gb.glob(os.path.join(dataset, video_name, 'img1') + "/*.jpg")) // 2 + 1
     tracker = AppearanceFeature(model_path='ckpt.t7')
-    for frame_id in sorted(det_results.keys())[:200]:
+    # for frame_id in sorted(det_results.keys())[:200]:
+    for frame_id in sorted(det_results.keys()):
         dets = det_results[frame_id]
         dets = np.array(dets)
-#         image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id + star_idx))
+        # image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id + star_idx))
+        # image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id))
         image_path = os.path.join(dataset, video_name, 'img1', '{:0>8d}.jpg'.format(frame_id))
         
         appearance_feat = tracker.update(dets, image_path)
@@ -133,8 +141,13 @@ for video_name in val_seqs:
     embedding_collection = list()
     for track_id in sorted(feat_results.keys())[:show_num_objects]:
         embedding_collection.extend(feat_results[track_id])
+    if len(embedding_collection) > 0:
+        embedding_collection = np.stack(embedding_collection)
+    else:
+        print("No embeddings were collected. Skipping t-SNE for this video.")
+        continue 
 
-    embedding_collection = np.stack(embedding_collection)
+    # embedding_collection = np.stack(embedding_collection)
     tsne_points = tsne.fit_transform(embedding_collection)
     
     colors = ['C0', 'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9']
@@ -154,8 +167,34 @@ for video_name in val_seqs:
 #     plt.legend(['0', '1', '2', '3', '4', '5', '6', '7'], loc='upper right')
     
 #     plt.savefig('tsne_mot17_02.png', bbox_inches='tight') 
-    plt.savefig('tsne_dancetrack0019.png', bbox_inches='tight')
+    plt.savefig(f'{output_dir}/{video_name}.png', bbox_inches='tight')
 
     plt.close()
     
-    exit()
+    # exit()
+
+
+# import os
+
+# def modify_mot_annotation(file_path):
+#     temp_file_path = file_path + ".tmp"  # Temporary file to save the modified data
+    
+#     with open(file_path, 'r') as file:
+#         lines = file.readlines()
+
+#     with open(temp_file_path, 'w') as temp_file:
+#         for line in lines:
+#             # Split the line into a list of values
+#             values = line.strip().split(',')
+#             if len(values) > 6:  # Ensure the line has at least 7 columns
+#                 values[7] = '1'  # Set the 7th value to 1
+#             # Write the modified line to the temp file
+#             temp_file.write(','.join(values) + '\n')
+    
+#     # Replace the original file with the modified file
+#     os.replace(temp_file_path, file_path)
+#     print(f"Modified file saved: {file_path}")
+
+# if __name__ == '__main__':
+#     annotation_file = '/home/minxing/datasets/NSVA_long/0042100404/gt/gt.txt'
+#     modify_mot_annotation(annotation_file)

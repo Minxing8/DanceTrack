@@ -56,6 +56,17 @@ if __name__ == '__main__':
             parser.add_argument("--" + setting, nargs='+')
         else:
             parser.add_argument("--" + setting)
+
+    # for setting in config.keys():
+    #     if setting in ['SEQMAP_FOLDER', 'SEQMAP_FILE']:
+    #         parser.add_argument("--" + setting, type=str)
+    #     elif type(config[setting]) == list:
+    #         parser.add_argument("--" + setting, nargs='+')
+    #     elif type(config[setting]) == type(None):
+    #         parser.add_argument("--" + setting)
+    #     else:
+    #         parser.add_argument("--" + setting, type=type(config[setting]))
+
     args = parser.parse_args().__dict__
     for setting in args.keys():
         if args[setting] is not None:
