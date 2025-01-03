@@ -91,7 +91,7 @@ The code can be run in one of two ways:
  - From the terminal via one of the scripts [here](scripts/). See each script for instructions and arguments, hopefully this is self-explanatory.
  - Directly by importing this package into your code, see the same scripts above for how.
 
-```python /home/minxing/code/DanceTrack/TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL val  --METRICS HOTA CLEAR Identity  --GT_FOLDER /home/minxing/datasets/NSVA_157_person/test --SEQMAP_FILE /home/minxing/code/DanceTrack/oracle_analysis/val_pred_nsva/seqmaps/nsva-val.txt --SKIP_SPLIT_FOL True --TRACKERS_TO_EVAL '' --TRACKER_SUB_FOLDER '' --NUM_PARALLEL_CORES 8 --PLOT_CURVES False --TRACKERS_FOLDER /home/minxing/code/DanceTrack/oracle_analysis/val_iou_motion_appearance_nsva```
+```python /TrackEval/scripts/run_mot_challenge.py --SPLIT_TO_EVAL val  --METRICS HOTA CLEAR Identity  --GT_FOLDER /home/minxing/datasets/NSVA_157_person/test --SEQMAP_FILE /oracle_analysis/val_pred_nsva/seqmaps/nsva-val.txt --SKIP_SPLIT_FOL True --TRACKERS_TO_EVAL '' --TRACKER_SUB_FOLDER '' --NUM_PARALLEL_CORES 8 --PLOT_CURVES False --TRACKERS_FOLDER /oracle_analysis/val_iou_motion_appearance_nsva```
 
 ## Quickly evaluate on supported benchmarks
 
