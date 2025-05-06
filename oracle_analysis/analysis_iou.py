@@ -4,10 +4,10 @@ from iou import Tracker
 import numpy as np
 
 # dataset = 'mot/val'
-# dataset = '/home/minxing/datasets/NSVA_157_person/test'
-dataset = '/home/minxing/datasets/sportsmot_publish/sportsmot_publish/dataset/val'
+dataset = '/home/minxing/datasets/NSVA_210_60fps_test'
+# dataset = '/home/minxing/datasets/sportsmot_publish/sportsmot_publish/dataset/val'
 
-val_pred = 'val_iou_sportsmot'
+val_pred = 'val_iou_nsva60'
 if not os.path.exists(val_pred):
     os.makedirs(val_pred)
 

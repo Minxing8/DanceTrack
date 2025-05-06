@@ -15,10 +15,10 @@ parser.add_argument('--end', default=25, type=int)
 args = parser.parse_args()
 
 # dataset = 'mot/val'
-# dataset = '/home/minxing/datasets/NSVA_157_person/test'
-dataset = '/home/minxing/datasets/sportsmot_publish/sportsmot_publish/dataset/val'
+dataset = '/home/minxing/datasets/NSVA_210_60fps_test'
+# dataset = '/home/minxing/datasets/sportsmot_publish/sportsmot_publish/dataset/val'
 
-val_pred = 'val_iou_motion_appearance_sportsmot'
+val_pred = 'val_iou_motion_appearance_nsva60'
 if not os.path.exists(val_pred):
     os.makedirs(val_pred)
 
@@ -51,8 +51,8 @@ for video_name in val_seqs:
         det = det_results[frame_id]
         det = np.array(det)
         # image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id + star_idx))
-        image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id))
-        # image_path = os.path.join(dataset, video_name, 'img1', '{:0>8d}.jpg'.format(frame_id))
+        # image_path = os.path.join(dataset, video_name, 'img1', '{:0>6d}.jpg'.format(frame_id))
+        image_path = os.path.join(dataset, video_name, 'img1', '{:0>8d}.jpg'.format(frame_id))
         online_targets = tracker.update(det, image_path)
         online_tlwhs = []
         online_ids = []

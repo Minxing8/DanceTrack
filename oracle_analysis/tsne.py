@@ -83,9 +83,9 @@ args = parser.parse_args()
 
 # dataset = 'mot/val'
 # dataset = '/home/minxing/datasets/NSVA_157_person/test'
-dataset = '/home/minxing/datasets/NSVA_long'
+dataset = '/home/minxing/datasets/NSVA_long/30'
 
-output_dir = 'tsne_nsva_long'
+output_dir = 'tsne_nsva_long/30'
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
